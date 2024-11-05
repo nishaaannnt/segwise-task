@@ -8,6 +8,7 @@ const winston = require('winston');
 const PORT = process.env.PORT || 4000;
 const bodyParser = require("body-parser");
 const { handleError } = require("./server/helpers/errorHandler");
+const db_mongoose = require('./server/models')
 
 app.use(cors());
 
@@ -27,7 +28,6 @@ const logger = winston.createLogger({
     }),
   ]
 });
-
 // this is for logging 
 expressWinston.requestWhitelist.push('body');
 expressWinston.responseWhitelist.push('body');
@@ -39,6 +39,8 @@ app.use(expressWinston.logger({
   // expressFormat: true, // optional: use the default Express/morgan format
   colorize: false, // optional: colorize the log output
 }));
+
+
 
 app.use(cors()); // Enable CORS
 app.use(express.json()); // Parse JSON request bodies
@@ -55,6 +57,12 @@ app.use((err, req, res, next) => {
   handleError(err, res);
 });
 
+const options = {
+  connectTimeoutMS: 10000,
+  maxPoolSize: 100,
+  minPoolSize: 50
+};
+
 const start = () => {
   try {
     db_mongoose.mongoose.connect(process.env.MONGODB_URI, options).then(
@@ -62,7 +70,7 @@ const start = () => {
         console.log("mongoDb connected")
       });
     app.listen(PORT || 8000, () => {
-      console.log("On server port", process.env.PORT || "8000");
+      console.log("On server port", process.env.PORT || PORT);
     });
   } catch (error) {
     console.log(error);
