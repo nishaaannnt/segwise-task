@@ -7,7 +7,7 @@ const expressWinston = require('express-winston');
 const winston = require('winston');
 const PORT = process.env.PORT || 4000;
 const bodyParser = require("body-parser");
-const { handleError } = require("./server/helpers/errorHandler");
+const handleError = require("./server/helpers/errorHandler");
 const db_mongoose = require('./server/models')
 const { job } = require('./config/cron')
 

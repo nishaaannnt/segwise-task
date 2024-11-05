@@ -48,11 +48,20 @@ async function deleteReview(query) {
     }
 }
 
+async function aggregateReviews(pipeline) {
+    try {
+        return await Reviews.model.aggregate(pipeline);
+    } catch (e) {
+        throw e;
+    }
+}
+
 module.exports = {
     addReviews: addReviews,
     getReviewsByQuery: getReviewsByQuery,
     getDistinctReviewByQuery: getDistinctReviewByQuery,
     updateReviewDetails: updateReviewDetails,
     deleteReview: deleteReview,
+    aggregateReviews: aggregateReviews,
     convertObjectId: dbModels.convertObjectId
 }

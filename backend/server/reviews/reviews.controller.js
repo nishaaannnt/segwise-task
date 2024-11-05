@@ -53,7 +53,7 @@ async function getTrendStats(req, res, next) {
         const sevenDaysAgo = new Date();
         sevenDaysAgo.setDate(currentDate.getDate() - 7);
 
-        const trendData = await ReviewsHandler.aggregate([
+        const trendData = await ReviewsHandler.aggregateReviews([
             {
                 $match: {
                     date: { $gte: sevenDaysAgo, $lt: currentDate },

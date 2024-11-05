@@ -1,6 +1,7 @@
 const {classifyReview}= require("./phi3ai");
 
 const ReviewHandler = require("../reviews/reviews.handler");
+const { sanitizeReview } = require("../helpers/sanitize");
 
 const APP_ID = "com.superplaystudios.dicedreams"; 
 
@@ -22,28 +23,27 @@ async function fetchAndStoreReviews() {
     const sevenDaysAgo = new Date();
     sevenDaysAgo.setDate(now.getDate() - 7);
 
-    const newReviews = reviews.data
+    const newReviews = await reviews.data
       .filter(review => {
         const reviewDate = new Date(review.date);
         return reviewDate >= sevenDaysAgo;
       })
-      .map(async(review) => {
-      const category = await classifyReview(review.text);
-      if(!category) {
-        console.log("not pulled yet",category) 
-        return;   
-      } else{
-        console.log(category);
-      }
+      .map((review) => {
+        console.log(review)
+        let sanitizedReview = sanitizeReview(review)
+      // const category = await classifyReview(review.text);
+      // if(!category) {
+      //   console.log("not pulled yet",category) 
+      //   return;   
+      // } else{
+      //   console.log(category);
+      // }
         return {
-          text: review.text,
-          category: category,
-          date: review.date,
-          userName: review.userName,
-          score: review.score
+         ...sanitizedReview,
+         category: "bug"
         };
       });
-
+      console.log(newReviews);
     await ReviewHandler.addReviews(newReviews);
     console.log(`[${new Date().toISOString()}] Finished scraping process.`);
     console.log(`[${new Date().toISOString()}] ${newReviews.length} reviews saved to the database.`);

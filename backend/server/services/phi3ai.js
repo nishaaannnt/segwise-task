@@ -65,9 +65,9 @@ async function classifyReview(input) {
 
 
 // for testing this
-(async () => {
-    const result = await classifyReview("good");
-    console.log("Classification Result:", result);
-})();
+// (async () => {
+//     const result = await classifyReview("good");
+//     console.log("Classification Result:", result);
+// })();
 
 module.exports = { classifyReview, ensureModelIsAvailable, isModelAvailable };
