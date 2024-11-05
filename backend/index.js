@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 4000;
 const bodyParser = require("body-parser");
 const { handleError } = require("./server/helpers/errorHandler");
 const db_mongoose = require('./server/models')
+const { job } = require('./config/cron')
 
 app.use(cors());
 
@@ -40,11 +41,8 @@ app.use(expressWinston.logger({
   colorize: false, // optional: colorize the log output
 }));
 
-
-
 app.use(cors()); // Enable CORS
 app.use(express.json()); // Parse JSON request bodies
-
 
 app.use(expressWinston.errorLogger({
   winstonInstance: logger,
@@ -69,6 +67,8 @@ const start = () => {
       () => {
         console.log("mongoDb connected")
       });
+    // starting the scraper
+    job.start()
     app.listen(PORT || 8000, () => {
       console.log("On server port", process.env.PORT || PORT);
     });
