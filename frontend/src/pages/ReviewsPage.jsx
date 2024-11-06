@@ -7,7 +7,7 @@ const ReviewsPage = () => {
   const [date, setDate] = useState(new Date());
   const [category, setCategory] = useState("");
   const [reviews, setReviews] = useState([]);
-  const [weeklySummary, setWeeklySummary] = useState(null);
+  const [dailySummary, setDailySummary] = useState(null);
   const [weeklyTrends, setWeeklyTrends] = useState(null);
 
   const [reviewsLoading, setReviewsLoading] = useState(false);
@@ -52,9 +52,9 @@ const ReviewsPage = () => {
     try {
       const formattedDate = formatDate(date);
       const fetchedSummary = await fetchSummary(formattedDate);
-      setWeeklySummary(fetchedSummary[0]["summary"]);
+      setDailySummary(fetchedSummary[0]["summary"]);
     } catch (error) {
-      setSummaryError("Could not load weekly summary.");
+      setSummaryError("Could not load daily summary.");
     } finally {
       setSummaryLoading(false);
     }
@@ -177,7 +177,7 @@ const ReviewsPage = () => {
             ) : summaryError ? (
               <p>{summaryError}</p>
             ) : (
-              <div>{weeklySummary}</div>
+              <div>{dailySummary}</div>
             )}
           </div>
 
