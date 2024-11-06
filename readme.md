@@ -118,22 +118,22 @@ PORT=5000
    ```
 
 2. **Access the App**:
-   - Backend: `http://localhost:5000`
-   - Frontend: `http://localhost:3000`
+   - Backend: `https://localhost:4000`
+   - Frontend: `http://localhost:5173`
 
 ### Testing the APIs
 You can test the API endpoints using a tool like [Postman](https://www.postman.com/) or [curl](https://curl.se/).
 
 ## Deployment and Cost Analysis
-- **Cloud Deployment**: The backend API is deployed on Vercel/AWS (adjust as per your cloud setup).
-- **Frontend Deployment**: Also deployed on Vercel/AWS (link below).
+- **Cloud Deployment**: The backend API is deployed on Render (adjust as per your cloud setup).
+- **Frontend Deployment**: Also deployed on Vercel (link below).
 - **Costs**:
    - **Hosting**: Assuming AWS free tier for MongoDB and Vercel’s free plan for low-traffic sites, costs can be minimal.
    - **AI Model**: If hosted on a cloud model API service, estimated costs would be low, around $1/month for 5 queries/day, based on typical pricing for text classification models.
 
 ### Links
-- **Deployed API**: [https://your-api-link.com](https://your-api-link.com)
-- **Frontend Link**: [https://your-frontend-link.com](https://your-frontend-link.com)
+- **Deployed API**: [https://segwise-task.onrender.com/api/v1/health-check](https://segwise-task.onrender.com/api/v1/health-check)
+- **Frontend Link**: [https://segwise-frontend-opal.vercel.app/](https://segwise-frontend-opal.vercel.app/)
 
 
 
