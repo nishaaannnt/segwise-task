@@ -121,7 +121,7 @@ const ReviewsPage = () => {
           <div className="my-4">
             <h2 className="text-xl font-semibold">Day Summary</h2>
             {summaryLoading ? (
-              <p>Loading summary...</p>
+              <p>Loading summary... if this takes time, probably we are creating a summary</p>
             ) : summaryError ? (
               <p>{summaryError}</p>
             ) : (
