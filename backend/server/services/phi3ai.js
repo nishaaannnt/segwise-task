@@ -2,6 +2,10 @@ require('dotenv').config();
 const axios = require("axios");
 const usedModelName = process.env.MODEL_NAME;
 
+// this is our ai service -> we are using phi3:mini which is a small language model by microsoft
+// it would have been better if we could have trained/fine-tuned it -> as it can hallucinates
+// this can get work done tho.
+
 async function isModelAvailable(modelName) {
     try {
         const response = await axios.get(process.env.OLLAMA_API_URL + "/api/tags");

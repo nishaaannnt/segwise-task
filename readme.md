@@ -1,45 +1,40 @@
 # Segwise.ai Backend Task
 
 ## Overview
-This project is a backend service for managing and retrieving application reviews. It provides REST APIs for fetching, filtering, and classifying app reviews based on specified dates and categories. The solution is built to be scalable, flexible, and easy to set up locally, with deployment instructions and costs provided.
+This project is a backend service for managing and retrieving application reviews. It provides REST APIs for fetching, filtering, and classifying app reviews based on specified dates and categories.
 
 ## Tech Stack
-- **Node.js**: Backend runtime environment.
-- **Express**: Node.js framework for building REST APIs.
-- **MongoDB**: Database used to store reviews data.
-- **Docker**: For containerized local development and deployment.
-- **Vercel** or **AWS**: Cloud provider for deployment (change based on your actual deployment).
-- **React**: Frontend built using Vite and React to allow users to interact with reviews and summaries.
+- **Express**: wanted to try with golang, but due to time constraint went with something i am experienced in.
+- **MongoDB**: as not explicitly mentioned went with mongodb.
+- **Ollama**: went with phi3:mini - wanted to train it for better results, but had to create dataset so avoided it for now.
+- **Docker**: Containerized both backend (along with phi3:mini model) and frontend.
+- **Vercel**: hosted both the backend and frontend.
+- **React + Tailwind**: for ui.
 
 ## Libraries Used
-### Backend Libraries
-- **Mongoose**: MongoDB object modeling for Node.js.
-- **axios**: Promise-based HTTP client for API requests.
-- **express-async-handler**: Simplifies error handling in Express routes.
-- **cors**: Middleware to enable Cross-Origin Resource Sharing.
+- **axios**: HTTP requests for API data fetching.
+- **bcryptjs**: Password hashing for secure storage.
+- **cors**: Cross-Origin Resource Sharing configuration middleware.
+- **cron**: Schedule tasks at specified intervals.
 - **dotenv**: Loads environment variables from `.env` file.
-
-### Frontend Libraries
-- **React Query**: For data fetching and caching.
-- **React Router**: To handle navigation between pages.
-- **Tailwind CSS**: Utility-first CSS framework for styling.
-- **Date-fns**: For easy date manipulation and formatting.
+- **express**: Fast, minimal web server framework.
+- **express-winston**: Logging middleware for Express applications.
+- **google-play-scraper**: Fetch app data from Google Play Store.
+- **jsonwebtoken**: Token-based authentication and verification.
+- **mongoose**: MongoDB object modeling and schema management.
+- **nodemon**: Automatically restarts server on file changes.
+- **ollama**: Interface for Ollama AI API services.
+- **winston**: Logging library for managing log files.
 
 ## Features Implemented
-1. **User Authentication**:
-   - Simple login and registration feature with `auth` key stored in `localStorage`.
 
-2. **Reviews Management**:
-   - Fetch all reviews of a given day or week.
-   - Filter reviews based on date and category.
-   - View summarized reviews for a date or week.
-
-3. **Classification API Integration**:
-   - Classifies reviews into categories (e.g., Complaints, Praises, Bugs, etc.) using an AI model.
-
-4. **Frontend Pages**:
-   - **Login/Register**: Simple login and registration pages.
-   - **Reviews Page**: View and filter reviews with a date picker and category dropdown.
+1. Scrape on rolling basis (everyday at 1am)
+2. Categorize reviews - using Small language models (phi3:mini)
+3. Summary of Days - when api is called, it makes ai summarize the days review
+4. Trends/ Statistics of the days - used aggregation
+5. Authentication - Register/ login and middleware to verify bearer tokens
+6. Deployed the backend and frontend
+7. Good code quality - segregated functions where necessary, and commented important parts
 
 ## Sample API Request/Response
 
