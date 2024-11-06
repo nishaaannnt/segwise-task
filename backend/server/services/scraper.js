@@ -1,15 +1,15 @@
 const { classifyReview } = require("./phi3ai");
-
 const ReviewHandler = require("../reviews/reviews.handler");
 const { sanitizeReview } = require("../helpers/sanitize");
 
-const APP_ID = "com.superplaystudios.dicedreams";
+const APP_ID = "com.superplaystudios.dicedreams"; // we can add this in env if required
 
+// remove this later
 let evaluating = false;
 
 async function fetchAndStoreReviews() {
   try {
-    if(evaluating) {
+    if (evaluating) {
       console.log("evaluating so skipped")
       return;
     }
@@ -21,27 +21,11 @@ async function fetchAndStoreReviews() {
     const reviews = await gplay.default.reviews({
       appId: APP_ID,
       sort: gplay.default.sort.NEWEST,
-      num: 20,
+      num: 30,
     });
+    await formatReviews(reviews);
 
-    // filter by current date and date 7 days ago
-    // maybe this needs to be CORRECTED
-    const now = new Date();
-    const sevenDaysAgo = new Date();
-    sevenDaysAgo.setDate(now.getDate() - 7);
-
-    let newReviews = await reviews.data
-      .filter(review => {
-        const reviewDate = new Date(review.date);
-        return reviewDate >= sevenDaysAgo;
-      })
-      .map((review) => {
-        let sanitizedReview = sanitizeReview(review)
-        return sanitizedReview
-      });
-
-    newReviews = await evaluateReviews(newReviews);
-    console.log(newReviews);
+    // store reviews
     try {
       await ReviewHandler.addReviews(newReviews);
       console.log(`[${new Date().toISOString()}] ${newReviews.length} new reviews saved to the database.`);
@@ -62,9 +46,29 @@ async function fetchAndStoreReviews() {
   }
 }
 
+async function formatReviews(reviews) {
+
+  const now = new Date();
+  const sevenDaysAgo = new Date();
+  sevenDaysAgo.setDate(now.getDate() - 7);
+
+  let newReviews = await reviews.data
+    .filter(review => {
+      const reviewDate = new Date(review.date);
+      return reviewDate >= sevenDaysAgo;
+    })
+    .map((review) => {
+      let sanitizedReview = sanitizeReview(review)
+      return sanitizedReview
+    });
+
+  newReviews = await evaluateReviews(newReviews);
+  return newReviews;
+}
+
 async function evaluateReviews(reviews) {
   try {
-    for(let i=0;i<reviews.length;i++) {
+    for (let i = 0; i < reviews.length; i++) {
       const category = await classifyReview(reviews[i].text);
       if (!category) {
         console.log("not pulled yet", category)

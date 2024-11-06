@@ -36,11 +36,9 @@ async function getReviewsByFilter(req, res, next) {
             // start and end is given so that all timing under that can come
             filter.date = { $gte: startDate, $lt: endDate };
         }
-
         if (category) {
             filter.category = category;
         }
-
         const filteredReviews = await ReviewsHandler.getReviewsByQuery(filter,{},skip,limit);
         res.json({ data: filteredReviews });
     } catch (e) {

@@ -4,7 +4,6 @@ const STRICT = false;
 const STRICT_QUERY = false;
 
 const Fields = {
-    "USER_NAME": "username",
     "EMAIL": "email",
     "PASSWORD": "password",
     "CREATED_AT": "createdAt",

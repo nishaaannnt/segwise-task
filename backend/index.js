@@ -50,6 +50,7 @@ app.use(expressWinston.errorLogger({
 
 // these are the routes
 app.use("/api/v1", route)
+app.use("/auth/v1", require('./server/auth/auth.route'))
 
 app.use((err, req, res, next) => {
   handleError(err, res);
