@@ -41,6 +41,7 @@ const ReviewsPage = () => {
       fetchReviewsData();
     }
   }, []);
+  
   const fetchWeeklySummaryData = async () => {
     setSummaryLoading(true);
     setSummaryError(null);

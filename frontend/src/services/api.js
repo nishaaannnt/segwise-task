@@ -19,7 +19,7 @@ export const register = async (credentials) => {
 };
 
 export const fetchAllReviews = async (date) => {
-  const { data } = await api.get('/api/v1//reviews', {
+  const { data } = await api.get('/api/v1/reviews', {
     params: { date },
     headers: {
       Authorization: `Bearer ${localStorage.getItem("auth") || ""
@@ -30,8 +30,8 @@ export const fetchAllReviews = async (date) => {
 
 };
 export const fetchReviews = async (date, category) => {
-  const { data } = await api.get('/api/v1//reviews/filter', {
-    params: { date, category },
+  const { data } = await api.get('/api/v1/reviews/filter', {
+    params: { date, category, limit:1000 },
     headers: {
       Authorization: `Bearer ${localStorage.getItem("auth") || ""
         }`
@@ -41,7 +41,7 @@ export const fetchReviews = async (date, category) => {
 };
 
 export const fetchSummary = async (date) => {
-  const { data } = await api.get('/api/v1//summary', {
+  const { data } = await api.get('/api/v1/summary', {
     params: { date },
     headers: {
       Authorization: `Bearer ${localStorage.getItem("auth") || ""

@@ -6,6 +6,7 @@ const APP_ID = "com.superplaystudios.dicedreams"; // we can add this in env if r
 
 // remove this later
 let evaluating = false;
+let nextPaginationToken = null;
 
 async function fetchAndStoreReviews() {
   try {
@@ -21,9 +22,10 @@ async function fetchAndStoreReviews() {
     const reviews = await gplay.default.reviews({
       appId: APP_ID,
       sort: gplay.default.sort.NEWEST,
-      num: 30,
+      num: 10,
     });
-    await formatReviews(reviews);
+    nextPaginationToken = reviews.nextPaginationToken;
+    let newReviews = await formatReviews(reviews);
 
     // store reviews
     try {
@@ -37,13 +39,12 @@ async function fetchAndStoreReviews() {
         throw error;
       }
     }
+    evaluating = false;
     console.log(`----------------------------`);
   } catch (error) {
-    console.error(`[${new Date().toISOString()}] Error fetching or saving reviews:`, error);
-  } finally {
-    console.log("done");
     evaluating = false;
-  }
+    console.error(`[${new Date().toISOString()}] Error fetching or saving reviews:`, error);
+  } 
 }
 
 async function formatReviews(reviews) {
