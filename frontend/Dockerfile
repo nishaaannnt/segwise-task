@@ -1,25 +1,27 @@
-# Use Node.js LTS version as the base
+# Step 1: Use Node.js to build the Vite app
 FROM node:18 AS build
 
-# Create app directory
+# Set working directory
 WORKDIR /app
 
 # Install dependencies
 COPY frontend/package*.json ./
 RUN npm install
 
-# Copy frontend source code
+# Copy the rest of the frontend source code
 COPY frontend/ .
 
-# Build the frontend app
+# Build the frontend app with Vite for production
 RUN npm run build
 
-# Use Nginx to serve the static frontend files
+# Step 2: Use Nginx to serve the static files
 FROM nginx:alpine
-COPY --from=build /app/build /usr/share/nginx/html
 
-# Expose the port Nginx will serve on (e.g., 80)
+# Copy the production build from Vite to Nginx's default HTML location
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Expose port 80 for Nginx
 EXPOSE 80
 
-# Start Nginx
+# Run Nginx in the foreground
 CMD ["nginx", "-g", "daemon off;"]

@@ -1,3 +1,5 @@
+// sanitize our review to match our model
+
 function sanitizeReview(review) {
     
     const sanitizedReview = {

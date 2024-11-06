@@ -50,3 +50,14 @@ export const fetchSummary = async (date) => {
   });
   return data;
 };
+
+export const fetchTrends = async (date) => {
+  const { data } = await api.get('/api/v1/reviews/trends', {
+    params: { date },
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("auth") || ""
+        }`
+    }
+  });
+  return data;
+};

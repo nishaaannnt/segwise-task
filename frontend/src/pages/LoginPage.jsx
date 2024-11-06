@@ -9,7 +9,7 @@ const LoginPage = () => {
     const response = await login(credentials);
     console.log(response);
     localStorage.setItem('auth',response.token);
-    navigate('/reviews')
+    navigate('/')
   };
 
   return <AuthForm isLogin={true} onSubmit={handleLogin} />;

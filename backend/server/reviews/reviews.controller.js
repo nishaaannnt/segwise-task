@@ -50,8 +50,9 @@ async function getTrendStats(req, res, next) {
     try {
         const currentDate = new Date();
         const sevenDaysAgo = new Date();
+        // go 7 days back
         sevenDaysAgo.setDate(currentDate.getDate() - 7);
-
+        // aggregation
         const trendData = await ReviewsHandler.aggregateReviews([
             {
                 $match: {
@@ -59,6 +60,7 @@ async function getTrendStats(req, res, next) {
                 }
             },
             {
+                // group in _id such that - each days - each category - and its count
                 $group: {
                     _id: {
                         date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
@@ -73,6 +75,8 @@ async function getTrendStats(req, res, next) {
         ]);
 
         // formatting trend data
+        // {} is initial accumulator
+        // for each day we collect it's review type
         const trendStats = trendData.reduce((acc, item) => {
             const { date, category } = item._id;
             if (!acc[date]) acc[date] = {};

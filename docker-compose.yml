@@ -6,9 +6,7 @@ services:
     container_name: backend
     ports:
       - "4000:4000"
-    environment:
-      - MONGODB_URI=mongodb+srv://makerelated:makerelated937252@makerelated.vzbrxj1.mongodb.net/
-      - OLLAMA_API_URL=http://ollama:11434
+    env_file: backend/.env
     depends_on:
       - ollama
 
@@ -18,7 +16,7 @@ services:
       dockerfile: frontend/Dockerfile
     container_name: frontend
     ports:
-      - "5173:80"  # Maps the Nginx server port to localhost
+      - "5173:80"
 
   ollama:
     image: ollama/ollama:latest

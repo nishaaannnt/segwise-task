@@ -1,5 +1,8 @@
 const jwt = require('jsonwebtoken');
 
+// AuthMiddleware - unless the user provides an bearer token
+// we do not allow to call the api
+
 const authMiddleware = (req, res, next) => {
   let bearerToken =  req.headers['authorization']  || req.cookies?.token;
   if(!bearerToken) {

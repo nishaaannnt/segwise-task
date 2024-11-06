@@ -1,3 +1,5 @@
+// custom error handler 
+// so if any api throws unhandled error. we use this
 
 const handleError = (err, res) => {
   const statusCode = err.statusCode || 500;

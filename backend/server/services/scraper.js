@@ -1,38 +1,35 @@
 const { classifyReview } = require("./phi3ai");
+require('dotenv').config()
 const ReviewHandler = require("../reviews/reviews.handler");
 const { sanitizeReview } = require("../helpers/sanitize");
 
-const APP_ID = "com.superplaystudios.dicedreams"; // we can add this in env if required
+const APP_ID = process.env.APP_ID; // we can add this in env if required
 
-// remove this later
+// we will be using this manage the scraping state
 let evaluating = false;
-let nextPaginationToken = null;
 
 async function fetchAndStoreReviews() {
   try {
     if (evaluating) {
-      console.log("evaluating so skipped")
+      console.log("evaluation in process. skipping for now...")
       return;
     }
     evaluating = true;
-    console.log(`----------------------------`);
-    console.log(`[${new Date().toISOString()}] Starting the scraping process...`);
+    // this library only supports ES6 
     const gplay = await import("google-play-scraper");
-    // get reviews
+
     const reviews = await gplay.default.reviews({
       appId: APP_ID,
       sort: gplay.default.sort.NEWEST,
       num: 30,
     });
-    nextPaginationToken = reviews.nextPaginationToken;
     let newReviews = await formatReviews(reviews);
 
     // store reviews
     try {
       await ReviewHandler.addReviews(newReviews);
-      console.log(`[${new Date().toISOString()}] ${newReviews.length} new reviews saved to the database.`);
     } catch (error) {
-      // duplicate key error
+      // throw duplicate key error
       if (error.code === 11000) {
         console.log("Duplicate review detected; skipping duplicate entries.");
       } else {
@@ -44,11 +41,10 @@ async function fetchAndStoreReviews() {
   } catch (error) {
     evaluating = false;
     console.error(`[${new Date().toISOString()}] Error fetching or saving reviews:`, error);
-  } 
+  }
 }
 
 async function formatReviews(reviews) {
-
   const now = new Date();
   const sevenDaysAgo = new Date();
   sevenDaysAgo.setDate(now.getDate() - 7);
@@ -62,7 +58,6 @@ async function formatReviews(reviews) {
       let sanitizedReview = sanitizeReview(review)
       return sanitizedReview
     });
-
   newReviews = await evaluateReviews(newReviews);
   return newReviews;
 }

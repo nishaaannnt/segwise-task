@@ -1,4 +1,3 @@
-const express = require("express");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const bcrypt = require("bcryptjs");
@@ -6,7 +5,7 @@ const AuthHandler = require('./auth.handler');
 
 dotenv.config();
 
-// Login function
+// login function
 const login = async (req, res, next) => {
   try {
     if(!req.body.hasOwnProperty('email') || !req.body.hasOwnProperty('password')) {
@@ -22,7 +21,6 @@ const login = async (req, res, next) => {
     if (!passwordMatch) {
       return res.status(401).json({message:"Incorrect Password"});
     }
-
     const token = jwt.sign(
       { id: user.id, email: user.email },
       process.env.ACCESS_TOKEN_SECRET,
@@ -35,7 +33,7 @@ const login = async (req, res, next) => {
   }
 };
 
-// Signup function
+// signup function
 const signup = async (req, res, next) => {
   try {
     if(!req.body.hasOwnProperty('email') || !req.body.hasOwnProperty('password')) {
