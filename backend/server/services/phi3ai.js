@@ -49,7 +49,7 @@ async function classifyReview(input) {
 
         console.log("Classifying input:", input);
         const startTime = new Date();
-        const prompt = `Classify the following review under one of these categories: Bugs, Complaints, Crashes, Praises, or Other. Choose 'Bugs' if the review mentions any issues or bugs in the app, 'Complaints' for general complaints about functionality or features, 'Crashes' if the review discusses app crashes, 'Praises' if the review praises the app or developers, or 'Other' if none of the other categories apply.Limit your response to only one word (extremely important). Do not include any other details in your response. Return only one category name based on the review content.Review: '${input}' Category: `
+        const prompt = `Classify the following review under one of these categories: Bugs, Complaints, Crashes, Praises, or Other. Choose 'Bugs' if the review mentions any issues or bugs in the app, 'Complaints' for general complaints about functionality or features, 'Crashes' if the review discusses app crashes, 'Praises' if the review praises the app or developers, or 'Other' if none of the other categories apply.Limit your response to only one word (extremely important). Do not include any other details in your response. Strictly stick to the instructions. Return only one category name based on the review content.Review: \`${input}\` Category: `
         const response = await axios.post(process.env.OLLAMA_API_URL + "/api/generate", {
             model: usedModelName,
             prompt: prompt,

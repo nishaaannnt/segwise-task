@@ -22,7 +22,7 @@ async function fetchAndStoreReviews() {
     const reviews = await gplay.default.reviews({
       appId: APP_ID,
       sort: gplay.default.sort.NEWEST,
-      num: 10,
+      num: 30,
     });
     nextPaginationToken = reviews.nextPaginationToken;
     let newReviews = await formatReviews(reviews);
