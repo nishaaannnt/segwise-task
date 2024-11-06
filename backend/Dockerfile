@@ -14,7 +14,7 @@ RUN npm install nodemon -g
 COPY backend/ .
 
 # Expose backend port (e.g., 3000)
-EXPOSE 3000
+EXPOSE 4000
 
 # Start the backend server
 CMD ["nodemon", "index.js"]
