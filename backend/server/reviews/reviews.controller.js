@@ -21,7 +21,7 @@ async function getReviewsByFilter(req, res, next) {
     try {
         const { date, category } = req.query;
         let skip = 0;
-        let limit =10;
+        let limit =20;
         if(req.query.hasOwnProperty('skip')) {
             skip = req.query['skip'];
         }
@@ -33,6 +33,7 @@ async function getReviewsByFilter(req, res, next) {
             const startDate = new Date(date);
             const endDate = new Date(date);
             endDate.setDate(startDate.getDate() + 1);
+            // start and end is given so that all timing under that can come
             filter.date = { $gte: startDate, $lt: endDate };
         }
 

@@ -4,7 +4,7 @@ const Summary = dbModels.summary;
 
 async function addSummaryDescription(body) {
     try {
-        return await Summary.model.insertMany([body], { ordered: true });
+        return await Summary.model.insert(body);
     } catch (e) {
         throw e;
     }
