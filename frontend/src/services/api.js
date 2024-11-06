@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // can add this url to env as well
 const api = axios.create({
-  baseURL: 'http://localhost:4000',
+  baseURL: 'https://segwise-task.onrender.com',
 });
 
 // api/v1/ -> api routes
