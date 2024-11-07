@@ -286,3 +286,10 @@ GET /reviews/trends?date=2024-11-05
 4. but overall it gets the work done, and if fine-tuned, everything will work like a charm.
 5. categorizing 20 reviews can take about 2-3 minutes in my laptop (m3 air). it can depend as per the device.
 
+## resources used
+
+1. Google + Stack Overflow - for bugs and documentation of libraries
+2. ChatGPT - mostly for frontend UI (the work is to debug it lol). also to understand about libraries and more. it is not very good for backend code as it provides beginners code structure.
+3. aws docs - for pricing
+4. ollama docker image library documentations
+5. some youtube tutorials about phi3:mini model
