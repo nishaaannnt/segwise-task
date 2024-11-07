@@ -70,8 +70,15 @@ This project is a backend service for managing and retrieving application review
    ```
 4. Ensure you **Ollama installed on you computer**. It will automatically pull the required model. 
 
+5. Also in ``frontend/src/services/api.js`` change `baseURL: 'https://segwise-task.onrender.com'` to 
+`baseURL: 'http://localhost:4000'`
+
+6. The above should be added in a dotenv file, but as frontend was not our priority, i did not focus on this currently. sorry for that.
+
 
 ### Local Setup With Docker
+
+**Please do the above step 5 and 6 first.** 
 
 1. **Build and Run Containers**:
    ```bash
