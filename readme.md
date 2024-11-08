@@ -277,6 +277,7 @@ GET /reviews/trends?date=2024-11-05
 2. was thinking of a queuing system to scrape. but then thought it has a whole day to scrape, so not required
 3. have used cors, but not configured it.
 4. jestjs test cases missing. 
+5. our llm model is not hosted - so it scrapes - but cannot evaluate the reviews. in this case - we set evaluated as false and store it in db
 
 ## some issues i ran into and notes
 
