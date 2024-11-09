@@ -139,7 +139,7 @@ const ReviewsPage = () => {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Reviews</h1>
-      <h3 className="mb-2">Note: if you see no categories for reviews on a day, it's because we have not hosted llms and those reviews are scraped at midnight 1am. So we scrape - try to evaluate those reviews - if failed (as llm is not hosted) - set evaluated as false - store in database. (check network tab api call to understand) </h3>
+      <h3 className="mb-2">Note: if you see no categories for reviews on a day, it's because we have not hosted llms and those reviews are scraped at midnight 1am. So we scrape - try to evaluate those reviews - if failed (as llm is not hosted) - set evaluated as false - store in database. (check network tab api call to understand). Check date 4,5,6 (as developed at this time) </h3>
       {isLoggedIn ? (
         <>
           <div className="flex gap-4 items-center">
